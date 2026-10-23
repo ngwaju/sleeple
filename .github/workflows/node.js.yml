@@ -32,10 +32,20 @@ jobs:
       - name: Build project
         run: bun run build
 
+      # Outside Lovable the static site lands in .output/public; inside Lovable it's dist/client.
+      - name: Locate static site folder
+        id: site
+        run: |
+          if [ -f .output/public/index.html ]; then dir=.output/public
+          elif [ -f dist/client/index.html ]; then dir=dist/client
+          else echo "No built index.html found"; ls -la . .output dist 2>/dev/null; exit 1; fi
+          touch "$dir/.nojekyll"
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/client
+          path: ${{ steps.site.outputs.dir }}
 
   deploy:
     environment:
