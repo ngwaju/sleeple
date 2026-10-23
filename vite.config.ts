@@ -19,10 +19,10 @@ export default defineConfig({
     // Every route renders identical mock data for all visitors (no auth/cookies/per-user reads).
     pages: [
       { path: "/" },
-      { path: "/sleeple/devices" },
-      { path: "/sleeple/formula" },
-      { path: "/sleeple/leaderboard" },
-      { path: "/sleeple/social" },
+      { path: "/devices" },
+      { path: "/formula" },
+      { path: "/leaderboard" },
+      { path: "/social" },
     ],
     prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
