@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
+import { Area, ComposedChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend } from "recharts";
 import { Activity, Clock, Heart, Info, Moon, Sparkles, Zap } from "lucide-react";
 import { users, me, fmtDuration, chronoEmoji, type SleepUser } from "@/lib/sleep-data";
 
@@ -118,7 +118,7 @@ function TrendChart() {
       </div>
       <div className="h-72">
         <ResponsiveContainer>
-          <AreaChart data={data}>
+          <ComposedChart data={data}>
             <defs>
               <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.4} />
@@ -132,7 +132,7 @@ function TrendChart() {
             <Legend />
             <Area type="monotone" dataKey="You" stroke="var(--primary)" strokeWidth={2.5} fill="url(#ga)" />
             <Line type="monotone" dataKey="Friends avg" stroke="var(--neon)" strokeWidth={2} strokeDasharray="5 4" dot={false} />
-          </AreaChart>
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
     </section>
