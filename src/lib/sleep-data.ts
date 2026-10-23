@@ -36,6 +36,6 @@ export const users: SleepUser[] = [
   { id: "david", name: "David", device: "Google Pixel Watch", chronotype: "Bear", level: 4, xp: 88, score: 79, durationMin: 462, deepPct: 18, remPct: 23, efficiency: 87, restingHr: 57, history: series(29, 77) },
 ];
 
-export const me = users[0];
+export const me: SleepUser = users[0]!;
 
 export const fmtDuration = (m: number) => `${Math.floor(m / 60)}h ${m % 60}m`;

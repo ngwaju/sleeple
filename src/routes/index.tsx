@@ -96,7 +96,7 @@ function TrendChart() {
     return me.history.slice(-range).map((score, i, arr) => {
       const d = new Date(today);
       d.setDate(today.getDate() - (arr.length - 1 - i));
-      const avg = Math.round(users.reduce((s, u) => s + u.history[30 - arr.length + i], 0) / users.length);
+      const avg = Math.round(users.reduce((s, u) => s + (u.history[30 - arr.length + i] ?? 0), 0) / users.length);
       return { day: d.toLocaleDateString("en", { month: "short", day: "numeric" }), You: score, "Friends avg": avg };
     });
   }, [range]);
