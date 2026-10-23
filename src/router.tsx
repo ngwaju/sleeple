@@ -8,6 +8,9 @@ export const getRouter = () => {
   const router = createRouter({
     routeTree,
     context: { queryClient },
+    // The build prerenderer requests each page with a trailing slash and is
+    // pinned to maxRedirects: 0, so the default "never" 307 must not fire.
+    trailingSlash: "preserve",
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
   });
