@@ -36,30 +36,31 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.16 0.025 265);
-  --foreground: oklch(0.96 0.01 250);
-  --card: oklch(0.28 0.035 260 / 55%);
-  --card-foreground: oklch(0.96 0.01 250);
-  --popover: oklch(0.22 0.03 262);
-  --popover-foreground: oklch(0.96 0.01 250);
-  --primary: oklch(0.82 0.15 205);
-  --primary-foreground: oklch(0.16 0.025 265);
-  --secondary: oklch(0.28 0.035 260);
-  --secondary-foreground: oklch(0.96 0.01 250);
-  --muted: oklch(0.28 0.035 260 / 60%);
-  --muted-foreground: oklch(0.7 0.03 255);
-  --accent: oklch(0.65 0.26 305);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.82 0.15 205);
-  --neon: oklch(0.65 0.26 305);
-  --glass: oklch(0.28 0.035 260 / 45%);
+  /* Dreamy pastel palette — soft lavender mist, moonlit lilac, sleepy sky blue */
+  --background: oklch(0.96 0.015 285);
+  --foreground: oklch(0.35 0.04 280);
+  --card: oklch(1 0 0 / 70%);
+  --card-foreground: oklch(0.35 0.04 280);
+  --popover: oklch(0.99 0.005 285);
+  --popover-foreground: oklch(0.35 0.04 280);
+  --primary: oklch(0.68 0.12 285);
+  --primary-foreground: oklch(0.99 0.005 285);
+  --secondary: oklch(0.92 0.025 285);
+  --secondary-foreground: oklch(0.4 0.05 280);
+  --muted: oklch(0.93 0.02 285 / 70%);
+  --muted-foreground: oklch(0.55 0.04 280);
+  --accent: oklch(0.75 0.1 210);
+  --accent-foreground: oklch(0.99 0.005 285);
+  --destructive: oklch(0.68 0.16 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.6 0.05 285 / 12%);
+  --input: oklch(0.6 0.05 285 / 18%);
+  --ring: oklch(0.68 0.12 285);
+  --neon: oklch(0.75 0.1 210);
+  --glass: oklch(1 0 0 / 65%);
   --gradient-glow: linear-gradient(135deg, var(--primary), var(--neon));
-  --shadow-cyan: 0 0 24px -4px color-mix(in oklab, var(--primary) 55%, transparent);
-  --shadow-neon: 0 0 32px -6px color-mix(in oklab, var(--neon) 60%, transparent);
+  --shadow-cyan: 0 8px 24px -8px color-mix(in oklab, var(--primary) 30%, transparent);
+  --shadow-neon: 0 8px 28px -8px color-mix(in oklab, var(--neon) 35%, transparent);
 }
 
 @layer base {
@@ -69,8 +70,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(60rem 40rem at 10% -10%, color-mix(in oklab, var(--neon) 18%, transparent), transparent 60%),
-      radial-gradient(50rem 35rem at 100% 0%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 60%);
+      radial-gradient(60rem 40rem at 10% -10%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 60%),
+      radial-gradient(50rem 35rem at 100% 0%, color-mix(in oklab, var(--neon) 14%, transparent), transparent 60%),
+      radial-gradient(45rem 30rem at 50% 110%, color-mix(in oklab, oklch(0.85 0.06 340) 20%, transparent), transparent 60%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -81,6 +83,7 @@
   border: 1px solid var(--border);
   backdrop-filter: blur(18px) saturate(140%);
   border-radius: var(--radius-2xl);
+  box-shadow: 0 4px 24px -8px color-mix(in oklab, var(--primary) 14%, transparent);
 }
 @utility text-gradient {
   background: var(--gradient-glow);
