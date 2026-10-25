@@ -9,20 +9,23 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   vite: {
-    base: "/sleeple/",
+    // Only GitHub Pages uses a repository subpath. Lovable serves at the origin.
+    base: process.env.DEPLOY_TARGET === "github-pages" ? "/sleeple/" : "/",
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
     // Prerender all routes to static HTML for GitHub Pages hosting.
-    // Every route renders identical mock data for all visitors (no auth/cookies/per-user reads).
+    // Account data loads in the browser after the session is available.
     pages: [
       { path: "/" },
       { path: "/devices" },
       { path: "/formula" },
       { path: "/leaderboard" },
       { path: "/social" },
+      { path: "/auth" },
+      { path: "/account" },
     ],
     prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
