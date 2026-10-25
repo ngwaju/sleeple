@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Moon, Watch } from "lucide-react";
-import { me, chronoEmoji } from "@/lib/sleep-data";
+import { chronoEmoji, type Chronotype } from "@/lib/sleep-data";
+import { useAuth } from "@/hooks/use-auth";
 
 const tabs = [
   { to: "/", label: "Dashboard" },
@@ -11,6 +12,7 @@ const tabs = [
 ] as const;
 
 export function AppHeader() {
+  const { user, profile } = useAuth();
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-6 py-4">
@@ -33,17 +35,24 @@ export function AppHeader() {
             </Link>
           ))}
         </nav>
-        <div className="ml-auto glass flex items-center gap-3 rounded-full px-4 py-2 text-sm">
-          <div>
-            <div className="font-medium">
-              Level {me.level} • {chronoEmoji[me.chronotype]} {me.chronotype} •{" "}
-              <Watch className="inline h-3.5 w-3.5 text-primary" /> {me.device}
+        {user ? (
+          <Link to="/account" className="ml-auto glass flex items-center gap-3 rounded-full px-4 py-2 text-sm">
+            <div>
+              <div className="font-medium">
+                {profile?.display_name ?? "You"} • Level {profile?.level ?? 1} •{" "}
+                {chronoEmoji[(profile?.chronotype ?? "Bear") as Chronotype]} {profile?.chronotype} •{" "}
+                <Watch className="inline h-3.5 w-3.5 text-primary" /> {profile?.device}
+              </div>
+              <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+                <div className="h-full bg-gradient-glow" style={{ width: `${profile?.xp ?? 0}%` }} />
+              </div>
             </div>
-            <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full bg-gradient-glow" style={{ width: `${me.xp}%` }} />
-            </div>
-          </div>
-        </div>
+          </Link>
+        ) : (
+          <Link to="/auth" className="ml-auto rounded-full bg-gradient-glow px-5 py-2 text-sm font-semibold text-primary-foreground">
+            Sign in
+          </Link>
+        )}
       </div>
     </header>
   );
