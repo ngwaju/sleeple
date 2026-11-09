@@ -32,8 +32,10 @@ jobs:
       - name: Build project
         env:
           DEPLOY_TARGET: github-pages
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          # Public (publishable) values; safe to ship in the browser bundle.
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://mbixqpqupmxxkghhtraf.supabase.co' }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_sBy9K_hlROIp0DmrknV-yw_Aj3_8hH3' }}
+          VITE_SUPABASE_PROJECT_ID: mbixqpqupmxxkghhtraf
         run: bun run build
 
       # Outside Lovable the static site lands in .output/public; inside Lovable it's dist/client.
@@ -44,6 +46,8 @@ jobs:
           elif [ -f dist/client/index.html ]; then dir=dist/client
           else echo "No built index.html found"; ls -la . .output dist 2>/dev/null; exit 1; fi
           touch "$dir/.nojekyll"
+          # SPA fallback so sign-in returns and deep links don't 404.
+          cp "$dir/index.html" "$dir/404.html"
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
 
       - name: Upload artifact
